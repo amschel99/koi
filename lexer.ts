@@ -1,3 +1,4 @@
+
 export enum TokenType{
     Identifier,
     Equals,
@@ -7,9 +8,15 @@ export enum TokenType{
     BinaryOperator
 
 }
+export const KEYWORDS:Record<string, TokenType>={
+    "let":TokenType.Let
+}
 export function isAlpha(src:string){
     return src.toUpperCase()!=src.toLowerCase()
 
+}
+export function isSkippable(str:string):boolean{
+return str==" "|| str=="\n" || str=="\t"
 }
 export function isInt(src:string){
     //here we check the unicode value to tell whether its a number
@@ -48,6 +55,33 @@ while (src.length>0){
     }
     else{
         /** handle multicharacter tokens */
+        if(isInt(src[0])){
+            let num="";
+            while(src.length>0 && isInt(src[0])){
+                num+=src.shift();
+            }
+            tokens.push(token(num,TokenType.Number))
+        }else if (isAlpha(src[0])){
+            let ident=""
+            while(src.length>0 && isAlpha(src[0])){
+                ident+=src.shift();
+            }
+            //check for reserved keywords
+            const reserved=KEYWORDS[ident]
+            if(reserved==undefined){
+                tokens.push(token(ident,TokenType.Identifier))
+            }else{
+                tokens.push(token(ident,reserved))
+            }
+            
+        }else if(isSkippable(src[0])){
+            src.shift();
+        }
+        else{
+            console.log("Unrecognized character", src[0]);
+        //process.exit(1)
+
+        }
     }
     
 }
