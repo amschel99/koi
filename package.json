@@ -1,0 +1,21 @@
+{
+  "name": "chel",
+  "version": "1.0.0",
+  "description": "a scripting languange written in Typescript and Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lexer": " NODE_OPTIONS=--experimental-specifier-resolution=node nodemon --exec  ts-node --esm src/lexer.ts",
+    "start": "NODE_OPTIONS=--experimental-specifier-resolution=node tsc && node dist/index.js "
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@types/node": "^20.8.9",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

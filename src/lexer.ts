@@ -79,8 +79,7 @@ while (src.length>0){
         }
         else{
             console.log("Unrecognized character", src[0]);
-        //process.exit(1)
-
+process.exit(1);
         }
     }
     
